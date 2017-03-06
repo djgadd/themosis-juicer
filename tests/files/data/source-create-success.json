@@ -1,0 +1,86 @@
+{
+  "id": 21712,
+  "slug": "keltie-cochrane",
+  "name": "Keltie Cochrane",
+  "plan": "enterprise",
+  "update_frequency": 1440,
+  "last_synced": "2017-02-08T17:23:47.772-08:00",
+  "max_sources": 1000,
+  "more_sources_allowed?": true,
+  "analytics_allowed?": true,
+  "moderation_allowed?": true,
+  "css": "user",
+  "interval": 5000,
+  "width": null,
+  "height": null,
+  "columns": 3,
+  "order": "created_at",
+  "display_filter": null,
+  "colored_icons": false,
+  "photos": false,
+  "videos": false,
+  "lazy_load": false,
+  "overlay": true,
+  "infinite_scroll": false,
+  "poll": false,
+  "disallowed": null,
+  "allowed": null,
+  "distance": null,
+  "location": null,
+  "lat": null,
+  "lng": null,
+  "profanity": false,
+  "prevent_duplicates": false,
+  "queue": false,
+  "moderating": false,
+  "page_views_count": 3,
+  "style": "user",
+  "requested_at": "2017-02-09T05:41:46.274-08:00",
+  "posts": {
+    "current_page": 1,
+    "limit_value": 0,
+    "items": []
+  },
+  "sources": [
+    {
+      "id": 64592,
+      "term": "KELTIECOCHRANE",
+      "term_type": "username",
+      "source": "Twitter",
+      "options": "retweets,"
+    },
+    {
+      "id": 64593,
+      "term": "keltiecochrane",
+      "term_type": "username",
+      "source": "Instagram",
+      "options": ""
+    },
+    {
+      "id": 75155,
+      "term": "keltiecochraneagency",
+      "term_type": "username",
+      "source": "Facebook",
+      "options": ""
+    },
+    {
+      "id": 119721,
+      "term": "test",
+      "term_type": "hashtag",
+      "source": "Twitter",
+      "options": ""
+    }
+  ],
+  "social_accounts": [
+    {
+      "uid": "647136289",
+      "provider": "instagram",
+      "name": "keltiecochrane"
+    },
+    {
+      "uid": "42736030",
+      "provider": "twitter",
+      "name": "KELTIECOCHRANE"
+    }
+  ]
+}
