@@ -28,8 +28,8 @@
   "require": {
     "php": ">=7.0",
     "composer/installers": "~1.2",
-    "djgadd/themosis-cache": "^0.1.0",
-    "djgadd/themosis-illuminate": "^0.0.1",
+    "keltiecochrane/themosis-cache": "^0.1.0",
+    "keltiecochrane/themosis-illuminate": "^0.0.1",
     "guzzlehttp/guzzle": "^6.2",
     "illuminate/support": "^5.4",
     "nesbot/carbon": "^1.22"
