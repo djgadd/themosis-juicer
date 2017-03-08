@@ -12,16 +12,6 @@ Install through composer: -
 
 `composer require keltiecochrane/themosis-juicer`
 
-Activate the plugin in WordPress then add it to your theme's class aliases in the theme.config.php file: -
-
-```
-  'aliases' => [
-    ...
-    'Juicer' => Com\KeltieCochrane\Juicer\Facades\Juicer::class,
-    ...
-  ]
-```
-
 Create a juicer.config.php, and add the following: -
 
 ```
@@ -33,7 +23,7 @@ return [
 
 Usage
 -----
-Use the facade to access the different endpoints, e.g.: -
+Once activated, use the facade to access the different endpoints, e.g.: -
 
 ```
 $feed = Juicer::feed(Config::get('juicer.slug'));
