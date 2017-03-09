@@ -66,7 +66,7 @@ class Builder extends BaseBuilder
 
       // Have we got enough posts?
       if (!$missCache && $this->pageLength) {
-        $missCache = $this->posts->count >= $this->pageLength;
+        $missCache = $this->posts->count() >= $this->pageLength;
       }
     }
 
