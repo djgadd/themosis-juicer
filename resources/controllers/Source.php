@@ -8,6 +8,7 @@ use Themosis\Facades\Config;
 use Illuminate\Http\Request;
 use Themosis\Facades\Section;
 use Illuminate\Validation\Rule;
+use Com\KeltieCochrane\Logger\Facades\Log;
 use Com\KeltieCochrane\Juicer\Factory as Juicer;
 use Com\KeltieCochrane\Illuminate\Facades\Validator;
 use Com\KeltieCochrane\Juicer\Page\Sections\SectionBuilder;
@@ -48,12 +49,22 @@ class Source extends Resource
   protected function buildSection () : SectionBuilder
   {
     $view = View::make('com.keltiecochrane.juicer.admin.sources');
+    $sources = [];
+
+    try {
+      Log::debug('Com\KeltieCochrane\Juicer\Controllers\Source@buildSection: getting sources');
+      $sources = container('juicer')->feed(Config::get('juicer.slug'))->sources()->get();
+    }
+    catch (\Exception $e) {
+      Log::error($e->getMessage(), ['e' => $e]);
+      $this->errors['generic'] = "Sorry, something went wrong: \"{$e->getMessage()}\"";
+    }
 
     return Section::make(static::$slug, 'Sources', [], $view)
       ->with([
         'networks' => Config::get('com_keltiecochrane_juicer_sources.networks'),
         'term_types' => Config::get('com_keltiecochrane_juicer_sources.term_types'),
-        'sources' => container('juicer')->feed(Config::get('juicer.slug'))->sources()->get(),
+        'sources' => $sources,
         'errors' => $this->errors,
         'updates' => $this->updates,
       ]);
