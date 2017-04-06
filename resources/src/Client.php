@@ -51,6 +51,7 @@ class Client
       ],
       'query' => $query,
       'form_params' => $data,
+      'timeout' => 1,
     ];
 
     // Set the auth token

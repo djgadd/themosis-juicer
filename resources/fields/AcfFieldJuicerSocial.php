@@ -133,8 +133,17 @@ class AcfFieldJuicerSocial extends AcfField {
    */
   protected function getSources ()
   {
-    return container('juicer')->feed(Config::get('juicer.slug'))->sources()->get()->mapWithKeys(function ($source) {
-      return [$source->id => "{$source->generateAnchor()} ({$source->source})"];
-    })->toArray();
+    try {
+      Logger::debug('Com\KeltieCochrane\Juicer\Fields\AcfFieldJuicerSocial@getSources: getting sources');
+      return container('juicer')->feed(Config::get('juicer.slug'))->sources()->get()->mapWithKeys(function ($source) {
+        return [$source->id => "{$source->generateAnchor()} ({$source->source})"];
+      })->toArray();
+    }
+    catch (\Exception $e) {
+      Log::error($e->getMessage(), [
+        'exception' => $e
+      ]);
+      return [];
+    }
   }
 }
