@@ -30,6 +30,7 @@
     "composer/installers": "~1.2",
     "keltiecochrane/themosis-cache": "^0.2.0",
     "keltiecochrane/themosis-illuminate": "^0.1.0",
+    "keltiecochrane/themosis-logger": "^0.1.0",
     "guzzlehttp/guzzle": "^6.2",
     "illuminate/support": "^5.4",
     "nesbot/carbon": "^1.22"
