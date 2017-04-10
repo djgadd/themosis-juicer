@@ -134,7 +134,7 @@ class AcfFieldJuicerSocial extends AcfField {
   protected function getSources ()
   {
     try {
-      Logger::debug('Com\KeltieCochrane\Juicer\Fields\AcfFieldJuicerSocial@getSources: getting sources');
+      Log::debug('Com\KeltieCochrane\Juicer\Fields\AcfFieldJuicerSocial@getSources: getting sources');
       return container('juicer')->feed(Config::get('juicer.slug'))->sources()->get()->mapWithKeys(function ($source) {
         return [$source->id => "{$source->generateAnchor()} ({$source->source})"];
       })->toArray();
