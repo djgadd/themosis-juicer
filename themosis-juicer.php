@@ -4,7 +4,7 @@
  * Plugin Name: Themosis Juicer
  * Plugin URI: https://keltiecochrane.com
  * Description: A Themosis WordPress plugin that provides a wrapper for the Juicer.io API.
- * Version: 0.1.4
+ * Version: 0.1.5
  * Author: Daniel Gadd @ Keltie Cochrane Ltd.
  * Author URI: https://keltiecochrane.com
  * Text Domain: themosis-juicer.
