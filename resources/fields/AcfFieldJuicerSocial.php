@@ -5,6 +5,7 @@ namespace Com\KeltieCochrane\Juicer\Fields;
 use acf_field as AcfField; // Bcos ew.
 use Themosis\Facades\View;
 use Themosis\Facades\Config;
+use Com\KeltieCochrane\Logger\Facades\Log;
 use Com\KeltieCochrane\Juicer\Factory as Juicer;
 
 class AcfFieldJuicerSocial extends AcfField {
