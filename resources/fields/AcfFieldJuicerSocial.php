@@ -4,8 +4,6 @@ namespace Com\KeltieCochrane\Juicer\Fields;
 
 use acf_field as AcfField; // Bcos ew.
 use Themosis\Facades\View;
-use Themosis\Facades\Config;
-use Com\KeltieCochrane\Logger\Facades\Log;
 use Com\KeltieCochrane\Juicer\Factory as Juicer;
 
 class AcfFieldJuicerSocial extends AcfField {
@@ -135,13 +133,13 @@ class AcfFieldJuicerSocial extends AcfField {
   protected function getSources ()
   {
     try {
-      Log::debug('Com\KeltieCochrane\Juicer\Fields\AcfFieldJuicerSocial@getSources: getting sources');
-      return container('juicer')->feed(Config::get('juicer.slug'))->sources()->get()->mapWithKeys(function ($source) {
+      app('log')->debug('Com\KeltieCochrane\Juicer\Fields\AcfFieldJuicerSocial@getSources: getting sources');
+      return container('juicer')->feed(app('config')->get('juicer.slug'))->sources()->get()->mapWithKeys(function ($source) {
         return [$source->id => "{$source->generateAnchor()} ({$source->source})"];
       })->toArray();
     }
     catch (\Exception $e) {
-      Log::error($e->getMessage(), [
+      app('log')->error($e->getMessage(), [
         'exception' => $e
       ]);
       return [];

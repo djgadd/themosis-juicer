@@ -13,18 +13,34 @@ require_once $_tests_dir.'/includes/functions.php';
 // Autoloader
 require __DIR__.'/../vendor/autoload.php';
 
-/**
- * Manually load the plugin being tested.
- */
+// Manually load in Themosis framework plugin
 tests_add_filter('muplugins_loaded', function () {
-  require dirname(dirname(__FILE__)).'/plugins/framework/themosis.php';
+  require dirname(dirname(__FILE__)).'/wp-content/plugins/framework/themosis.php';
+
+  // Define the themosis_theme_assets function
+  if (!function_exists('themosis_theme_assets')) {
+      /**
+       * Return the application theme public assets directory URL.
+       * Public assets are stored into the `dist` directory.
+       *
+       * @return string
+       */
+      function themosis_theme_assets()
+      {
+          if (is_multisite() && SUBDOMAIN_INSTALL) {
+              $segments = explode('themes', get_template_directory_uri());
+              $theme = (strpos($segments[1], DS) !== false) ? substr($segments[1], 1) : $segments[1];
+
+              return get_home_url().'/'.CONTENT_DIR.'/themes/'.$theme.'/dist';
+          }
+
+          return get_template_directory_uri().'/dist';
+      }
+  }
 });
 
-/**
- * Load the other plugins and our plugin
- */
+// Manually load our plugin
 tests_add_filter('plugins_loaded', function () {
-  require dirname(dirname(__FILE__)).'/plugins/themosis-cache/themosis-cache.php';
   require dirname(dirname(__FILE__)).'/themosis-juicer.php';
 });
 
@@ -34,8 +50,20 @@ require $_tests_dir.'/includes/bootstrap.php';
 // Tell themosis to look for our test configs
 container('config.finder')->addPaths([__DIR__.'/files/config/']);
 
-// Register the config alias
-class_alias(Themosis\Facades\Config::class, 'Config');
+// Define our providers
+$providers = [
+  KeltieCochrane\Illuminate\Config\ConfigServiceProvider::class,
+  KeltieCochrane\Illuminate\Filesystem\FilesystemServiceProvider::class,
+  KeltieCochrane\Illuminate\Translation\TranslationServiceProvider::class,
+  KeltieCochrane\Illuminate\Validation\ValidationServiceProvider::class,
+  KeltieCochrane\Logger\LogServiceProvider::class,
+  KeltieCochrane\Cache\CacheServiceProvider::class,
+];
+
+// Register our providers
+foreach ($providers as $provider) {
+  container()->register($provider);
+}
 
 // Simple little autoloader for our classes
 spl_autoload_register(function ($classname) {

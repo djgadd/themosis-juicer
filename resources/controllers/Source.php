@@ -4,11 +4,9 @@ namespace Com\KeltieCochrane\Juicer\Controllers;
 
 use Exception;
 use Themosis\Facades\View;
-use Themosis\Facades\Config;
 use Illuminate\Http\Request;
 use Themosis\Facades\Section;
 use Illuminate\Validation\Rule;
-use Com\KeltieCochrane\Logger\Facades\Log;
 use Com\KeltieCochrane\Juicer\Factory as Juicer;
 use Com\KeltieCochrane\Illuminate\Facades\Validator;
 use Com\KeltieCochrane\Juicer\Page\Sections\SectionBuilder;
@@ -52,18 +50,18 @@ class Source extends Resource
     $sources = [];
 
     try {
-      Log::debug('Com\KeltieCochrane\Juicer\Controllers\Source@buildSection: getting sources');
-      $sources = container('juicer')->feed(Config::get('juicer.slug'))->sources()->get();
+      app('log')->debug('Com\KeltieCochrane\Juicer\Controllers\Source@buildSection: getting sources');
+      $sources = container('juicer')->feed(app('config')->get('juicer.slug'))->sources()->get();
     }
     catch (\Exception $e) {
-      Log::error($e->getMessage(), ['e' => $e]);
+      app('log')->error($e->getMessage(), ['e' => $e]);
       $this->errors['generic'] = "Sorry, something went wrong: \"{$e->getMessage()}\"";
     }
 
     return Section::make(static::$slug, 'Sources', [], $view)
       ->with([
-        'networks' => Config::get('com_keltiecochrane_juicer_sources.networks'),
-        'term_types' => Config::get('com_keltiecochrane_juicer_sources.term_types'),
+        'networks' => app('config')->get('com_keltiecochrane_juicer_sources.networks'),
+        'term_types' => app('config')->get('com_keltiecochrane_juicer_sources.term_types'),
         'sources' => $sources,
         'errors' => $this->errors,
         'updates' => $this->updates,
@@ -100,11 +98,11 @@ class Source extends Resource
     $rules = [
       'network' => [
         'required',
-        Rule::in(array_keys(Config::get('com_keltiecochrane_juicer_sources.networks'))),
+        Rule::in(array_keys(app('config')->get('com_keltiecochrane_juicer_sources.networks'))),
       ],
       'term_type' => [
         'required',
-        Rule::in(array_keys(Config::get('com_keltiecochrane_juicer_sources.term_types'))),
+        Rule::in(array_keys(app('config')->get('com_keltiecochrane_juicer_sources.term_types'))),
       ],
       'term' => [
         'required'
@@ -131,7 +129,7 @@ class Source extends Resource
     }
 
     try {
-      $source = container('juicer')->feed(Config::get('juicer.slug'))->createSource($this->request->network, $this->request->term, $this->request->term_type);
+      $source = container('juicer')->feed(app('config')->get('juicer.slug'))->createSource($this->request->network, $this->request->term, $this->request->term_type);
       $this->updates['source_created'] = "Succesfully created {$source->generateUrl()}";
       return true;
     }
@@ -167,7 +165,7 @@ class Source extends Resource
     }
 
     try {
-      $source = container('juicer')->feed(Config::get('juicer.slug'))->deleteSource($this->request->source_id);
+      $source = container('juicer')->feed(app('config')->get('juicer.slug'))->deleteSource($this->request->source_id);
       $this->updates['source_deleted'] = "Source deleted.";
       return true;
     }

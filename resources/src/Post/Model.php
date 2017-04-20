@@ -2,7 +2,6 @@
 
 namespace Com\KeltieCochrane\Juicer\Post;
 
-use Themosis\Facades\Config;
 use Com\KeltieCochrane\Juicer\Client;
 use Com\KeltieCochrane\Juicer\Post\Builder;
 use Com\KeltieCochrane\Juicer\Model as BaseModel;
@@ -39,7 +38,7 @@ class Model extends BaseModel
       $client = new Client;
     }
 
-    $endpoint = Config::get('com_keltiecochrane_juicer_endpoints.posts').'/'.$this->id;
+    $endpoint = app('config')->get('com_keltiecochrane_juicer_endpoints.posts').'/'.$this->id;
     $response = $client->request('DELETE', $endpoint, [], [], true);
     return true;
   }
@@ -61,7 +60,7 @@ class Model extends BaseModel
       $client = new Client;
     }
 
-    $endpoint = Config::get('com_keltiecochrane_juicer_endpoints.posts').'/'.$this->id;
+    $endpoint = app('config')->get('com_keltiecochrane_juicer_endpoints.posts').'/'.$this->id;
     $response = $client->request('GET', $endpoint, [
       'per' => 0, // We don't want any posts
     ]);

@@ -5,7 +5,7 @@ namespace Com\KeltieCochrane\Juicer\Services;
 use Illuminate\Cache\CacheManager;
 use Com\KeltieCochrane\Juicer\Factory;
 use Themosis\Foundation\ServiceProvider;
-use Com\KeltieCochrane\Cache\Drivers\WordPressStore;
+use KeltieCochrane\Cache\Drivers\WordPressStore;
 
 class JuicerService extends ServiceProvider
 {
