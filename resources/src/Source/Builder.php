@@ -2,7 +2,6 @@
 
 namespace Com\KeltieCochrane\Juicer\Source;
 
-use Themosis\Facades\Config;
 use Illuminate\Support\Collection;
 use Com\KeltieCochrane\Juicer\Source\Model;
 use Com\KeltieCochrane\Juicer\Builder as BaseBuilder;
@@ -16,7 +15,7 @@ class Builder extends BaseBuilder
    */
   public function get (bool $missCache = null) : Collection
   {
-    $endpoint = Config::get('com_keltiecochrane_juicer_endpoints.feeds').'/'.$this->slug;
+    $endpoint = app('config')->get('com_keltiecochrane_juicer_endpoints.feeds').'/'.$this->slug;
     $response = $this->client->request('GET', $endpoint, $this->query);
     $sources = new Collection(json_decode($response->getBody())->sources);
 

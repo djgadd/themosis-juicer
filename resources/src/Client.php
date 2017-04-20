@@ -2,7 +2,6 @@
 
 namespace Com\KeltieCochrane\Juicer;
 
-use Themosis\Facades\Config;
 use GuzzleHttp\Client as GuzzleClient;
 use \Psr\Http\Message\ResponseInterface;
 use GuzzleHttp\Exception\BadResponseException;
@@ -56,7 +55,7 @@ class Client
 
     // Set the auth token
     if ($auth === true) {
-      $options['form_params']['authentication_token'] = Config::get('juicer.token');
+      $options['form_params']['authentication_token'] = app('config')->get('juicer.token');
     }
 
     $response =  $this->client->request($method, $endpoint, $options);

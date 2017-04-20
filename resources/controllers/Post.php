@@ -4,11 +4,9 @@ namespace Com\KeltieCochrane\Juicer\Controllers;
 
 use Exception;
 use Themosis\Facades\View;
-use Themosis\Facades\Config;
 use Illuminate\Http\Request;
 use Themosis\Facades\Section;
 use Illuminate\Validation\Rule;
-use Com\KeltieCochrane\Logger\Facades\Log;
 use Com\KeltieCochrane\Juicer\Factory as Juicer;
 use Com\KeltieCochrane\Illuminate\Facades\Validator;
 use Com\KeltieCochrane\Juicer\Page\Sections\SectionBuilder;
@@ -51,11 +49,11 @@ class Post extends Resource
     $posts = [];
 
     try {
-      Log::debug('Com\KeltieCochrane\Juicer\Controllers\Post@buildSection: getting posts');
-      $posts = container('juicer')->feed(Config::get('juicer.slug'))->posts()->get();
+      app('log')->debug('Com\KeltieCochrane\Juicer\Controllers\Post@buildSection: getting posts');
+      $posts = container('juicer')->feed(app('config')->get('juicer.slug'))->posts()->get();
     }
     catch (\Exception $e) {
-      Log::error($e->getMessage(), [
+      app('log')->error($e->getMessage(), [
         'exception' => $e
       ]);
       $this->errors['generic'] = "Sorry, something went wrong: \"{$e->getMessage()}\"";
@@ -112,7 +110,7 @@ class Post extends Resource
     }
 
     try {
-      $source = container('juicer')->feed(Config::get('juicer.slug'))->deletePost($this->request->post_id);
+      $source = container('juicer')->feed(app('config')->get('juicer.slug'))->deletePost($this->request->post_id);
       $this->updates['post_deleted'] = "Post deleted.";
       return true;
     }

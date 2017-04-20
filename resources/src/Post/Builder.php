@@ -5,7 +5,6 @@ namespace Com\KeltieCochrane\Juicer\Post;
 use stdClass;
 use Exception;
 use Carbon\Carbon;
-use Themosis\Facades\Config;
 use Illuminate\Support\Collection;
 use Com\KeltieCochrane\Juicer\Post\Model;
 use GuzzleHttp\Exception\BadResponseException;
@@ -73,7 +72,7 @@ class Builder extends BaseBuilder
     // We need to make a call to the API
     if ($missCache) {
       $this->query['filters'] = implode(',', $this->filters);
-      $endpoint = Config::get('com_keltiecochrane_juicer_endpoints.feeds').'/'.$this->slug;
+      $endpoint = app('config')->get('com_keltiecochrane_juicer_endpoints.feeds').'/'.$this->slug;
 
       // This should probably be asynchronous
       $body = json_decode($this->client->request('GET', $endpoint, $this->query)->getBody());

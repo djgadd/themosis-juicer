@@ -2,7 +2,6 @@
 
 namespace Com\KeltieCochrane\Juicer\Source;
 
-use Themosis\Facades\Config;
 use Illuminate\Support\Collection;
 use Com\KeltieCochrane\Juicer\Client;
 use Com\KeltieCochrane\Juicer\Model as BaseModel;
@@ -87,7 +86,7 @@ class Model extends BaseModel
    */
   public function generateAnchor () : string
   {
-    $sources = array_flip(Config::get('com_keltiecochrane_juicer_sources.networks'));
+    $sources = array_flip(app('config')->get('com_keltiecochrane_juicer_sources.networks'));
     $source = $sources[$this->source];
 
     switch ($source) {
@@ -233,7 +232,7 @@ class Model extends BaseModel
     }
 
     // Make the request
-    $endpoint = Config::get('com_keltiecochrane_juicer_endpoints.sources');
+    $endpoint = app('config')->get('com_keltiecochrane_juicer_endpoints.sources');
     $response = $client->request('POST', $endpoint, [], [
       'feed_id' => $feedId,
       'source' => $source,
@@ -263,7 +262,7 @@ class Model extends BaseModel
       $client = new Client;
     }
 
-    $endpoint = Config::get('com_keltiecochrane_juicer_endpoints.sources').'/'.$this->id;
+    $endpoint = app('config')->get('com_keltiecochrane_juicer_endpoints.sources').'/'.$this->id;
     $response = $client->request('DELETE', $endpoint, [], [], true);
     return true;
   }
@@ -287,7 +286,7 @@ class Model extends BaseModel
 
     // We have to get the feed to load in the required source, which is bleak
     $id = $this->id;
-    $endpoint = Config::get('com_keltiecochrane_juicer_endpoints.feeds').'/'.$this->slug;
+    $endpoint = app('config')->get('com_keltiecochrane_juicer_endpoints.feeds').'/'.$this->slug;
     $response = $client->request('GET', $endpoint, ['per' => 0]);
     $source = (new Collection(json_decode($response->getBody())->sources))
       ->first(function ($source) use ($id) {

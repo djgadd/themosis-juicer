@@ -2,7 +2,6 @@
 
 namespace Com\KeltieCochrane\Juicer\Feed;
 
-use Themosis\Facades\Config;
 use Com\KeltieCochrane\Juicer\Client;
 use Com\KeltieCochrane\Juicer\Model as BaseModel;
 use Com\KeltieCochrane\Juicer\Concerns\CanBeMutated;
@@ -77,7 +76,7 @@ class Model extends BaseModel
     }
 
     // Quezry das endpunt.
-    $endpoint = Config::get('com_keltiecochrane_juicer_endpoints.feeds').'/'.$this->id;
+    $endpoint = app('config')->get('com_keltiecochrane_juicer_endpoints.feeds').'/'.$this->id;
     $client->request('PUT', $endpoint, $attributes, [], true);
 
     return true;
@@ -100,7 +99,7 @@ class Model extends BaseModel
       $client = new Client;
     }
 
-    $endpoint = Config::get('com_keltiecochrane_juicer_endpoints.feeds').'/'.$this->id;
+    $endpoint = app('config')->get('com_keltiecochrane_juicer_endpoints.feeds').'/'.$this->id;
     $response = $client->request('GET', $endpoint, [
       'per' => 0, // We don't want any posts
     ]);
