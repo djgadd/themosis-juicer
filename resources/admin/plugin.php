@@ -2,10 +2,6 @@
 
 use Themosis\Facades\Action;
 
-// On activation check credentials?
-
-// Deactive, clear all posts
-
 // Setup our admin section
 Action::add('wp_loaded', 'Com\\KeltieCochrane\\Juicer\\Controllers\\Admin::setup');
 
